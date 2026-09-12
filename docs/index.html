@@ -1,302 +1,1060 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Virtual Mouse & Keyboard | Hand Gesture Control</title>
+<title>Virtual Mouse & Keyboard</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        body {
-            background: #0f172a;
-            color: white;
-            line-height: 1.6;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    min-height: 100vh;
+}
 
-        header {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-        }
+header {
+    padding: 25px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #263248;
+}
 
-        .hero {
-            max-width: 900px;
-        }
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
 
-        .hero h1 {
-            font-size: 52px;
-            margin-bottom: 20px;
-        }
+.logo span {
+    color: #38bdf8;
+}
 
-        .hero h1 span {
-            color: #38bdf8;
-        }
+nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    margin-left: 25px;
+}
 
-        .hero p {
-            font-size: 20px;
-            color: #cbd5e1;
-            margin-bottom: 30px;
-        }
+nav a:hover {
+    color: #38bdf8;
+}
 
-        .buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+.hero {
+    text-align: center;
+    padding: 80px 20px 50px;
+}
 
-        .btn {
-            text-decoration: none;
-            padding: 13px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+.hero h1 {
+    font-size: 58px;
+    margin-bottom: 25px;
+}
 
-        .primary {
-            background: #38bdf8;
-            color: #0f172a;
-        }
+.hero h1 span {
+    color: #38bdf8;
+}
 
-        .secondary {
-            border: 1px solid #38bdf8;
-            color: #38bdf8;
-        }
+.hero p {
+    color: #cbd5e1;
+    font-size: 20px;
+    max-width: 850px;
+    margin: auto;
+    line-height: 1.6;
+}
 
-        .btn:hover {
-            transform: translateY(-3px);
-        }
+.buttons {
+    margin-top: 35px;
+}
 
-        section {
-            padding: 80px 20px;
-            max-width: 1100px;
-            margin: auto;
-        }
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 8px;
+}
 
-        section h2 {
-            text-align: center;
-            font-size: 35px;
-            margin-bottom: 45px;
-        }
+.primary {
+    background: #38bdf8;
+    color: #07111f;
+}
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-        }
+.secondary {
+    background: transparent;
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
+}
 
-        .card {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #334155;
-        }
+button:hover {
+    transform: translateY(-2px);
+}
 
-        .card h3 {
-            color: #38bdf8;
-            margin-bottom: 12px;
-        }
+.demo-section {
+    max-width: 1200px;
+    margin: 30px auto 80px;
+    padding: 30px 20px;
+}
 
-        .card p {
-            color: #cbd5e1;
-        }
+.demo-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
 
-        .tech {
-            text-align: center;
-        }
+.demo-title h2 {
+    font-size: 36px;
+}
 
-        .tech span {
-            display: inline-block;
-            padding: 10px 18px;
-            margin: 7px;
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 20px;
-            color: #bae6fd;
-        }
+.demo-title p {
+    color: #94a3b8;
+    margin-top: 10px;
+}
 
-        .workflow {
-            text-align: center;
-            color: #cbd5e1;
-            font-size: 18px;
-        }
+.mode-buttons {
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: #020617;
-            color: #94a3b8;
-        }
+.demo-container {
+    display: none;
+    background: #111c30;
+    border: 1px solid #263248;
+    border-radius: 20px;
+    padding: 25px;
+}
 
-        @media (max-width: 600px) {
-            .hero h1 {
-                font-size: 38px;
-            }
+.demo-container.active {
+    display: block;
+}
 
-            .hero p {
-                font-size: 17px;
-            }
-        }
-    </style>
+.camera-area {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    margin: auto;
+    background: #020617;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#video {
+    width: 100%;
+    display: block;
+    transform: scaleX(-1);
+}
+
+#canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(-1);
+}
+
+.status {
+    text-align: center;
+    padding: 15px;
+    color: #38bdf8;
+    font-weight: bold;
+}
+
+.mouse-screen {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    height: 350px;
+    margin: 20px auto;
+    background: #f8fafc;
+    border-radius: 15px;
+    overflow: hidden;
+    color: #0f172a;
+}
+
+.mouse-screen h3 {
+    text-align: center;
+    padding: 20px;
+}
+
+.virtual-cursor {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ef4444;
+    border: 4px solid white;
+    box-shadow: 0 0 15px rgba(239,68,68,0.8);
+    pointer-events: none;
+    display: none;
+    transform: translate(-50%, -50%);
+}
+
+.click-target {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    background: #38bdf8;
+    color: #07111f;
+    padding: 20px 35px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+#keyboard {
+    max-width: 900px;
+    margin: 25px auto;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 8px;
+}
+
+.key {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 15px 5px;
+    text-align: center;
+    font-weight: bold;
+    transition: 0.15s;
+}
+
+.key.active {
+    background: #38bdf8;
+    color: #07111f;
+    transform: scale(1.05);
+}
+
+.text-box {
+    width: 100%;
+    max-width: 900px;
+    height: 100px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 12px;
+    border: 1px solid #334155;
+    background: #020617;
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    resize: none;
+}
+
+.instructions {
+    max-width: 850px;
+    margin: 25px auto;
+    padding: 20px;
+    background: #0f1a2d;
+    border-radius: 12px;
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+footer {
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid #263248;
+    color: #64748b;
+}
+
+@media(max-width: 700px) {
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    #keyboard {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="hero">
 
-        <h1>
-            Virtual <span>Mouse</span> & <span>Keyboard</span>
-        </h1>
+<div class="logo">
+Virtual <span>Mouse</span> & Keyboard
+</div>
 
-        <p>
-            A computer vision based human-computer interaction system
-            that enables mouse and keyboard control using hand gestures.
-        </p>
+<nav>
+<a href="#demo">Demo</a>
+<a href="https://github.com/Abithrekchneanbu/virtual-mouse-keyboard"
+target="_blank">GitHub</a>
+</nav>
 
-        <div class="buttons">
-            <a class="btn primary"
-               href="https://github.com/Abithrekchneanbu/virtual-mouse-keyboard"
-               target="_blank">
-                View GitHub
-            </a>
-
-            <a class="btn secondary" href="#features">
-                Explore Project
-            </a>
-        </div>
-
-    </div>
 </header>
 
 
-<section id="features">
+<section class="hero">
 
-    <h2>Project Features</h2>
+<h1>
+Virtual <span>Mouse</span> & <span>Keyboard</span>
+</h1>
 
-    <div class="cards">
+<p>
+A computer vision based human-computer interaction system
+that enables mouse and keyboard interaction using hand gestures.
+</p>
 
-        <div class="card">
-            <h3>🖱 Virtual Mouse</h3>
-            <p>
-                Control mouse movement using hand and finger gestures
-                detected through the webcam.
-            </p>
-        </div>
+<div class="buttons">
 
-        <div class="card">
-            <h3>⌨ Virtual Keyboard</h3>
-            <p>
-                Select and interact with virtual keyboard keys using
-                hand gestures and finger positioning.
-            </p>
-        </div>
+<button class="primary"
+onclick="showMouse()">
+🖱️ Try Virtual Mouse
+</button>
 
-        <div class="card">
-            <h3>✋ Hand Tracking</h3>
-            <p>
-                MediaPipe hand landmarks are used to identify finger
-                positions and gestures in real time.
-            </p>
-        </div>
+<button class="secondary"
+onclick="showKeyboard()">
+⌨️ Try Virtual Keyboard
+</button>
 
-        <div class="card">
-            <h3>📷 Webcam Based</h3>
-            <p>
-                The system uses a standard webcam as the primary
-                input device without requiring physical peripherals.
-            </p>
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
-<section>
+<section class="demo-section" id="demo">
 
-    <h2>How It Works</h2>
+<div class="demo-title">
 
-    <div class="workflow">
+<h2>Interactive Demo</h2>
 
-        <p>📷 Webcam captures the user's hand</p>
+<p>
+Allow camera access and control the demo using your hand.
+</p>
 
-        <p>↓</p>
-
-        <p>✋ MediaPipe detects hand landmarks</p>
-
-        <p>↓</p>
-
-        <p>🧠 Gesture logic identifies the intended action</p>
-
-        <p>↓</p>
-
-        <p>🖱 / ⌨ Mouse or keyboard action is performed</p>
-
-    </div>
-
-</section>
+</div>
 
 
-<section>
+<div class="mode-buttons">
 
-    <h2>Technologies Used</h2>
+<button class="primary"
+onclick="showMouse()">
+Virtual Mouse
+</button>
 
-    <div class="tech">
+<button class="secondary"
+onclick="showKeyboard()">
+Virtual Keyboard
+</button>
 
-        <span>Python</span>
-        <span>OpenCV</span>
-        <span>MediaPipe</span>
-        <span>PyAutoGUI</span>
-        <span>Pynput</span>
-        <span>Computer Vision</span>
+<button onclick="stopCamera()">
+Stop Camera
+</button>
 
-    </div>
-
-</section>
+</div>
 
 
-<section>
+<!-- CAMERA -->
 
-    <h2>Project</h2>
+<div class="camera-area">
 
-    <div class="workflow">
+<video id="video"
+autoplay
+playsinline>
+</video>
 
-        <p>
-            This project demonstrates gesture-based interaction
-            between humans and computers using computer vision.
-        </p>
+<canvas id="canvas"></canvas>
 
-        <br>
+</div>
 
-        <a class="btn primary"
-           href="https://github.com/Abithrekchneanbu/virtual-mouse-keyboard"
-           target="_blank">
-            Open Source Code
-        </a>
 
-    </div>
+<div class="status" id="status">
+Camera is not running.
+</div>
+
+
+<!-- MOUSE -->
+
+<div id="mouseDemo"
+class="demo-container">
+
+<h2 style="text-align:center;">
+🖱️ Virtual Mouse
+</h2>
+
+<div class="instructions">
+
+<b>How to use:</b><br>
+
+1. Click "Start Virtual Mouse".<br>
+2. Allow webcam access.<br>
+3. Move your index finger.<br>
+4. The red cursor follows your finger.<br>
+5. Bring your thumb and index finger together to click.
+
+</div>
+
+<button class="primary"
+onclick="startCamera('mouse')">
+Start Virtual Mouse
+</button>
+
+<div class="mouse-screen"
+id="mouseScreen">
+
+<h3>
+Move the red virtual cursor with your index finger
+</h3>
+
+<div class="click-target"
+id="clickTarget">
+CLICK ME
+</div>
+
+<div class="virtual-cursor"
+id="cursor">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- KEYBOARD -->
+
+<div id="keyboardDemo"
+class="demo-container">
+
+<h2 style="text-align:center;">
+⌨️ Virtual Keyboard
+</h2>
+
+<div class="instructions">
+
+<b>How to use:</b><br>
+
+1. Click "Start Virtual Keyboard".<br>
+2. Allow webcam access.<br>
+3. Point your index finger at a key.<br>
+4. Bring your thumb and index finger together.<br>
+5. The selected key will be typed below.
+
+</div>
+
+<button class="primary"
+onclick="startCamera('keyboard')">
+Start Virtual Keyboard
+</button>
+
+<textarea
+id="typedText"
+class="text-box"
+placeholder="Your typed text will appear here...">
+</textarea>
+
+<div id="keyboard"></div>
+
+</div>
 
 </section>
 
 
 <footer>
 
-    <p>Virtual Mouse & Keyboard</p>
-    <p>Built with Python & Computer Vision</p>
+Virtual Mouse & Keyboard Project<br>
+Computer Vision • MediaPipe • JavaScript • Web Technology
 
 </footer>
+
+
+<script type="module">
+
+import {
+    FilesetResolver,
+    HandLandmarker
+} from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.0.1";
+
+
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const statusText = document.getElementById("status");
+
+const cursor = document.getElementById("cursor");
+
+const typedText = document.getElementById("typedText");
+
+let handLandmarker = null;
+let cameraStream = null;
+
+let currentMode = "mouse";
+
+let lastVideoTime = -1;
+
+let lastPinchTime = 0;
+
+let previousKey = "";
+
+const keys = [
+    "Q","W","E","R","T","Y","U","I","O","P",
+    "A","S","D","F","G","H","J","K","L","⌫",
+    "Z","X","C","V","B","N","M","SPACE","ENTER"
+];
+
+
+function createKeyboard() {
+
+    const keyboard = document.getElementById("keyboard");
+
+    keyboard.innerHTML = "";
+
+    keys.forEach(key => {
+
+        const button = document.createElement("div");
+
+        button.className = "key";
+
+        button.textContent = key;
+
+        button.dataset.key = key;
+
+        keyboard.appendChild(button);
+
+    });
+
+}
+
+
+createKeyboard();
+
+
+async function loadHandLandmarker() {
+
+    statusText.textContent =
+        "Loading hand tracking model...";
+
+    const vision =
+        await FilesetResolver.forVisionTasks(
+            "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.0.1/wasm"
+        );
+
+    handLandmarker =
+        await HandLandmarker.createFromOptions(
+            vision,
+            {
+                baseOptions: {
+                    modelAssetPath:
+                    "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"
+                },
+
+                runningMode: "VIDEO",
+
+                numHands: 1,
+
+                minHandDetectionConfidence: 0.5,
+
+                minHandPresenceConfidence: 0.5,
+
+                minTrackingConfidence: 0.5
+            }
+        );
+
+    statusText.textContent =
+        "Hand tracking model loaded.";
+
+}
+
+
+async function startCamera(mode) {
+
+    currentMode = mode;
+
+    stopCamera();
+
+    try {
+
+        if (!handLandmarker) {
+
+            await loadHandLandmarker();
+
+        }
+
+        cameraStream =
+            await navigator.mediaDevices.getUserMedia(
+                {
+                    video: {
+                        width: 1280,
+                        height: 720
+                    },
+
+                    audio: false
+                }
+            );
+
+        video.srcObject = cameraStream;
+
+        await video.play();
+
+        canvas.width = video.videoWidth;
+
+        canvas.height = video.videoHeight;
+
+        statusText.textContent =
+            "Camera running • Show your hand";
+
+        requestAnimationFrame(processFrame);
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        statusText.textContent =
+            "Camera error: " + error.message;
+
+    }
+
+}
+
+
+function stopCamera() {
+
+    if (cameraStream) {
+
+        cameraStream
+            .getTracks()
+            .forEach(track => track.stop());
+
+        cameraStream = null;
+
+    }
+
+    video.srcObject = null;
+
+    statusText.textContent =
+        "Camera stopped.";
+
+    cursor.style.display = "none";
+
+}
+
+
+function processFrame(time) {
+
+    if (!cameraStream ||
+        video.readyState < 2) {
+
+        return;
+
+    }
+
+    if (video.currentTime !== lastVideoTime) {
+
+        lastVideoTime = video.currentTime;
+
+        const results =
+            handLandmarker.detectForVideo(
+                video,
+                performance.now()
+            );
+
+        drawHand(results);
+
+        if (
+            results.landmarks &&
+            results.landmarks.length > 0
+        ) {
+
+            const hand =
+                results.landmarks[0];
+
+            if (currentMode === "mouse") {
+
+                handleMouse(hand);
+
+            }
+
+            else {
+
+                handleKeyboard(hand);
+
+            }
+
+        }
+
+    }
+
+    requestAnimationFrame(processFrame);
+
+}
+
+
+function drawHand(results) {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    if (
+        !results.landmarks ||
+        results.landmarks.length === 0
+    ) {
+
+        return;
+
+    }
+
+    const hand = results.landmarks[0];
+
+    ctx.fillStyle = "#38bdf8";
+
+    hand.forEach(point => {
+
+        ctx.beginPath();
+
+        ctx.arc(
+            point.x * canvas.width,
+            point.y * canvas.height,
+            6,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+    });
+
+    ctx.strokeStyle = "#38bdf8";
+
+    ctx.lineWidth = 3;
+
+    const connections = [
+
+        [0,1],[1,2],[2,3],[3,4],
+
+        [0,5],[5,6],[6,7],[7,8],
+
+        [5,9],[9,10],[10,11],[11,12],
+
+        [9,13],[13,14],[14,15],[15,16],
+
+        [13,17],[17,18],[18,19],[19,20],
+
+        [0,17]
+
+    ];
+
+    connections.forEach(pair => {
+
+        const a = hand[pair[0]];
+
+        const b = hand[pair[1]];
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            a.x * canvas.width,
+            a.y * canvas.height
+        );
+
+        ctx.lineTo(
+            b.x * canvas.width,
+            b.y * canvas.height
+        );
+
+        ctx.stroke();
+
+    });
+
+}
+
+
+function handleMouse(hand) {
+
+    const index = hand[8];
+
+    const thumb = hand[4];
+
+    const x = 1 - index.x;
+
+    const y = index.y;
+
+    const screen =
+        document.getElementById("mouseScreen");
+
+    const rect =
+        screen.getBoundingClientRect();
+
+    const px =
+        x * rect.width;
+
+    const py =
+        y * rect.height;
+
+    cursor.style.display = "block";
+
+    cursor.style.left =
+        px + "px";
+
+    cursor.style.top =
+        py + "px";
+
+
+    const pinchDistance =
+        distance(index, thumb);
+
+
+    if (pinchDistance < 0.06) {
+
+        if (
+            Date.now() - lastPinchTime
+            > 700
+        ) {
+
+            lastPinchTime =
+                Date.now();
+
+            const target =
+                document.getElementById(
+                    "clickTarget"
+                );
+
+            const targetRect =
+                target.getBoundingClientRect();
+
+            const screenRect =
+                screen.getBoundingClientRect();
+
+            const tx =
+                targetRect.left -
+                screenRect.left +
+                targetRect.width / 2;
+
+            const ty =
+                targetRect.top -
+                screenRect.top +
+                targetRect.height / 2;
+
+            const distanceToTarget =
+                Math.hypot(
+                    px - tx,
+                    py - ty
+                );
+
+            if (distanceToTarget < 120) {
+
+                target.textContent =
+                    "✓ CLICKED!";
+
+                target.style.background =
+                    "#22c55e";
+
+                setTimeout(() => {
+
+                    target.textContent =
+                        "CLICK ME";
+
+                    target.style.background =
+                        "#38bdf8";
+
+                }, 1000);
+
+            }
+
+        }
+
+    }
+
+}
+
+
+function handleKeyboard(hand) {
+
+    const index = hand[8];
+
+    const thumb = hand[4];
+
+    const keyboard =
+        document.getElementById(
+            "keyboard"
+        );
+
+    const rect =
+        keyboard.getBoundingClientRect();
+
+
+    const x =
+        (1 - index.x) * rect.width;
+
+    const y =
+        index.y * rect.height;
+
+
+    const element =
+        document.elementFromPoint(
+            rect.left + x,
+            rect.top + y
+        );
+
+
+    document
+        .querySelectorAll(".key")
+        .forEach(key => {
+
+            key.classList.remove("active");
+
+        });
+
+
+    let selectedKey = null;
+
+
+    if (
+        element &&
+        element.classList.contains("key")
+    ) {
+
+        selectedKey = element;
+
+        element.classList.add("active");
+
+    }
+
+
+    if (!selectedKey) {
+
+        previousKey = "";
+
+        return;
+
+    }
+
+
+    const pinchDistance =
+        distance(index, thumb);
+
+
+    if (
+        pinchDistance < 0.06 &&
+        Date.now() - lastPinchTime > 700
+    ) {
+
+        lastPinchTime =
+            Date.now();
+
+        const key =
+            selectedKey.dataset.key;
+
+        typeKey(key);
+
+    }
+
+}
+
+
+function typeKey(key) {
+
+    if (key === "⌫") {
+
+        typedText.value =
+            typedText.value.slice(
+                0,
+                -1
+            );
+
+    }
+
+    else if (key === "SPACE") {
+
+        typedText.value += " ";
+
+    }
+
+    else if (key === "ENTER") {
+
+        typedText.value += "\n";
+
+    }
+
+    else {
+
+        typedText.value += key;
+
+    }
+
+}
+
+
+function distance(a,b) {
+
+    return Math.sqrt(
+
+        Math.pow(a.x - b.x, 2) +
+
+        Math.pow(a.y - b.y, 2) +
+
+        Math.pow(a.z - b.z, 2)
+
+    );
+
+}
+
+
+window.showMouse = function() {
+
+    document
+        .getElementById("mouseDemo")
+        .classList.add("active");
+
+    document
+        .getElementById("keyboardDemo")
+        .classList.remove("active");
+
+    currentMode = "mouse";
+
+    document
+        .getElementById("demo")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+};
+
+
+window.showKeyboard = function() {
+
+    document
+        .getElementById("keyboardDemo")
+        .classList.add("active");
+
+    document
+        .getElementById("mouseDemo")
+        .classList.remove("active");
+
+    currentMode = "keyboard";
+
+    document
+        .getElementById("demo")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+};
+
+
+window.startCamera = startCamera;
+
+window.stopCamera = stopCamera;
+
+
+showMouse();
+
+</script>
 
 </body>
 </html>
