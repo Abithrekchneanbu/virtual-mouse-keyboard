@@ -1,109 +1,81 @@
-# 🖱️ Virtual Mouse & ⌨️ Virtual Keyboard
+# 🖐️ Virtual Mouse & Keyboard
 
-> A real-time computer vision based Human-Computer Interaction (HCI) system that enables mouse and keyboard interaction using hand gestures captured through a webcam.
+<p align="center">
+  <img src="https://img.shields.io/badge/Computer%20Vision-AI-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Real--Time-Hand%20Tracking-green?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Python-3.11+-yellow?style=for-the-badge&logo=python">
+  <img src="https://img.shields.io/badge/MediaPipe-Hand%20Landmarks-orange?style=for-the-badge">
+  <img src="https://img.shields.io/badge/OpenCV-Vision-red?style=for-the-badge&logo=opencv">
+</p>
+
+<p align="center">
+  <strong>Control your computer using nothing but your hand.</strong>
+</p>
+
+<p align="center">
+  A real-time Human-Computer Interaction system powered by Computer Vision,
+  Hand Landmark Detection and Gesture Recognition.
+</p>
 
 <p align="center">
 
-![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python)
-![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-red?logo=opencv)
-![MediaPipe](https://img.shields.io/badge/MediaPipe-Hand%20Tracking-orange)
-![PyAutoGUI](https://img.shields.io/badge/PyAutoGUI-Automation-green)
-![Pynput](https://img.shields.io/badge/Pynput-Input%20Control-purple)
-![JavaScript](https://img.shields.io/badge/JavaScript-Web%20Demo-yellow?logo=javascript)
-![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Deployed-black?logo=github)
+🖱️ Virtual Mouse &nbsp;&nbsp; • &nbsp;&nbsp;
+⌨️ Virtual Keyboard &nbsp;&nbsp; • &nbsp;&nbsp;
+📷 Webcam Tracking &nbsp;&nbsp; • &nbsp;&nbsp;
+🌐 Web Demonstration
 
 </p>
 
 ---
 
-## 📌 Overview
+## 🚀 Project
 
-**Virtual Mouse & Virtual Keyboard** is a computer vision based Human-Computer Interaction project that allows users to interact with a computer using hand gestures instead of traditional physical input devices.
+**Virtual Mouse & Keyboard** transforms a standard webcam into a gesture-based input device.
 
-The system captures live video from a webcam, detects the user's hand using **MediaPipe**, processes hand landmarks using **Python and OpenCV**, and converts specific gestures into mouse and keyboard actions.
+Instead of physically touching a mouse or keyboard, users can interact using natural hand movements.
 
-The project also includes an **interactive browser-based demonstration** deployed using GitHub Pages.
-
----
-
-## ✨ Features
-
-### 🖱️ Virtual Mouse
-
-- Real-time hand tracking using webcam
-- Index-finger based cursor movement
-- Pinch gesture for mouse clicking
-- Smooth cursor movement
-- Touch-free interaction
-- Real-time visual feedback
-
-### ⌨️ Virtual Keyboard
-
-- Gesture-controlled virtual keyboard
-- Real-time hand landmark detection
-- Index-finger based key selection
-- Pinch gesture for key selection
-- Supports:
-  - Alphabet keys
-  - Space
-  - Enter
-  - Backspace
-- Real-time typed text display
-
-### 🌐 Web Demonstration
-
-The project also provides an interactive browser-based demonstration.
-
-Users can:
-
-- Access the webcam directly from the browser
-- Visualize hand tracking
-- Control a virtual cursor
-- Interact with a virtual keyboard
-- Test gesture recognition without installing Python
-
-> **Note:** The browser demo controls interaction inside the webpage. Browser security restrictions prevent a normal website from controlling the visitor's operating-system-level mouse or typing into external applications.
-
----
-
-# 🏗️ System Architecture
+The system captures live webcam frames, detects the hand using **MediaPipe**, extracts hand landmarks, interprets gestures and converts them into digital input actions.
 
 ```text
-                  ┌────────────────────┐
-                  │      Webcam        │
-                  └─────────┬──────────┘
-                            │
-                            ▼
-                  ┌────────────────────┐
-                  │   OpenCV Capture   │
-                  │  & Frame Processing│
-                  └─────────┬──────────┘
-                            │
-                            ▼
-                  ┌────────────────────┐
-                  │     MediaPipe      │
-                  │  Hand Landmarker   │
-                  └─────────┬──────────┘
-                            │
-                            ▼
-                  ┌────────────────────┐
-                  │ Hand Landmark      │
-                  │ Extraction         │
-                  └─────────┬──────────┘
-                            │
-                            ▼
-                  ┌────────────────────┐
-                  │ Gesture Recognition│
-                  └─────────┬──────────┘
-                            │
-                  ┌─────────┴──────────┐
-                  ▼                    ▼
-        ┌─────────────────┐  ┌─────────────────┐
-        │  Virtual Mouse  │  │ Virtual Keyboard│
-        └────────┬────────┘  └────────┬────────┘
-                 │                    │
-                 ▼                    ▼
-        ┌─────────────────┐  ┌─────────────────┐
-        │ PyAutoGUI /     │  │ Pynput /        │
-        │ Mouse Control   │  │ Keyboard Input  │
-        └─────────────────┘  └─────────────────┘
+                 📷 WEBCAM
+                    │
+                    ▼
+            🎞️ Video Frames
+                    │
+                    ▼
+          👋 Hand Detection
+                    │
+                    ▼
+        🧠 MediaPipe Landmarks
+                    │
+                    ▼
+          📍 Gesture Analysis
+                    │
+          ┌─────────┴─────────┐
+          ▼                   ▼
+     🖱️ Virtual Mouse     ⌨️ Virtual Keyboard
+          │                   │
+          ▼                   ▼
+     Cursor / Click       Key Selection
+
+
+
+---
+
+## 👩‍💻 Author
+
+### **Abithrekchneanbu**
+
+🎓 **B.Tech Information Science and Engineering**
+
+💻 Computer Vision • Artificial Intelligence • Python • Web Development
+
+Built with ❤️ using **Python, OpenCV, MediaPipe, PyAutoGUI, Pynput & JavaScript**
+
+---
+
+<p align="center">
+  <strong>© 2026 Abithrekchneanbu</strong>
+  <br>
+  Virtual Mouse & Keyboard
+</p>
